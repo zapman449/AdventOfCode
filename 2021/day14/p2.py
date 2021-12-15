@@ -36,21 +36,22 @@ def main() -> None:
             continue
         current_pairs[pair] += 1
     for step in range(40):
-        print(f"step {step + 1}")
+        # print(f"step {step + 1}")
         new_pairs: typing.Dict[str, int] = collections.defaultdict(int)
         for pair in list(current_pairs):
             three_letter = pair_changes[pair]
             new_pairs[three_letter[0:2]] += current_pairs[pair]
             new_pairs[three_letter[1:3]] += current_pairs[pair]
-        if step in (0, 1):
-            print(f"base {base}")
-            print(f"current_pairs {repr(current_pairs)}")
-            print(f"new_pairs {repr(new_pairs)}")
+        # if step in (0, 1):
+        #     print(f"base {base}")
+        #     print(f"current_pairs {repr(current_pairs)}")
+        #     print(f"new_pairs {repr(new_pairs)}")
         current_pairs = new_pairs
 
     counting: typing.Dict[str, int] = collections.defaultdict(int)
     for pair in current_pairs:
         counting[pair[0]] += current_pairs[pair]
+    counting[base[-1]] += 1
 
     max_l = max(counting, key=counting.get)
     min_l = min(counting, key=counting.get)
