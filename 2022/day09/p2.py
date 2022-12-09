@@ -62,7 +62,7 @@ def new_tail(h: Point, t: Point) -> Point:
             return move_right(t)
         return move_left(t)
     elif delta_x == 2 or delta_y == 2:
-        # then delta_y is 1
+        # and the other is 1
         if h.x > t.x and h.y > t.y:
             return move_up(move_right(t))
         elif h.x > t.x and h.y < t.y:
