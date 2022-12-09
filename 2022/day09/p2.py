@@ -13,6 +13,11 @@ class Point(typing.NamedTuple):
     x: int
     y: int
 
+    def __eq__(self, other) -> bool:
+        if isinstance(other, self.__class__):
+            return self.x == other.x and self.y == other.y
+        return False
+
 
 def move_up(p: Point) -> Point:
     return Point(p.x, p.y+1)
@@ -77,18 +82,16 @@ def main() -> None:
     for line in fileinput.input():
         d, count_str = line.strip().split(" ")
         count = int(count_str)
-        # print(d, count)
         for z in range(count):
             train[0] = dmap[d](train[0])
             for idx in range(len(train)-1):
                 h = train[idx]
                 t = train[idx+1]
-                # print(idx, h, t)
-                train[idx+1] = new_tail(h, t)
-            # print(d, count, z, list(enumerate(train)))
-            if train[-1] not in visited:
-                visited.add(train[-1])
-                # print(train[-1])
+                new_t = new_tail(h, t)
+                train[idx+1] = new_t
+                if t == new_t:
+                    break
+            visited.add(train[-1])
 
     print(f"p2 {len(visited)}")
 
