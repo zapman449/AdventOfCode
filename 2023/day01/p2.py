@@ -43,11 +43,11 @@ def main() -> None:
             digits = spelled_digits(line.strip())
             try:
                 x = int(digits[0]) * 10
-            except:
+            except ValueError:
                 x = 0
             try:
                 y = int(digits[-1])
-            except:
+            except ValueError:
                 y = 0
             tally += x + y
     print(tally)
