@@ -139,7 +139,7 @@ def get_ratio(p: Point, data: typing.List[str]) -> int:
     unset_nums = sum([1 for t in tlist if t == -1])
     if unset_nums == 3:
         return 0
-    return upper * lower * left * right
+    return abs(upper * lower * left * right)
 
 
 def parse_row(y: int, data: typing.List[str]) -> int:
