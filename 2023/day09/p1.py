@@ -23,10 +23,9 @@ def run_tests() -> None:
     pass
 
 
-def p1(row: typing.List[int], c=0) -> int:
-    # print(f"in: -{c}- {row}")
+def p1(row_i: typing.Iterable[int], c=0) -> int:
+    row = list(row_i)
     if sum(row) == 0:
-        # print(f"out: -{c}- {row + [0]}")
         return 0
     new_row = []
     for i, num in enumerate(row):
@@ -34,11 +33,11 @@ def p1(row: typing.List[int], c=0) -> int:
             break
         new_row.append(row[i + 1] - num)
     r = p1(new_row, c+1)
-    # print(f"out: -{c}- {row + [r]}")
     return r + row[-1]
 
 
-def p2(row: typing.List[int], c=0) -> int:
+def p2(row_i: typing.Iterable[int], c=0) -> int:
+    row = list(row_i)
     if sum(row) == 0:
         return 0
     new_row = []
@@ -53,8 +52,9 @@ def p2(row: typing.List[int], c=0) -> int:
 def main() -> None:
     args = parse_args()
     data = get_input(args.input)
-    print(f"p1: {sum([p1(list(map(int, row.split()))) for row in data])}")
-    print(f"p2: {sum([p2(list(map(int, row.split()))) for row in data])}")
+    print(f"p1: {sum([p1(map(int, row.split())) for row in data])}")
+    print(f"p2: {sum([p2(map(int, row.split())) for row in data])}")
+    print(f"p2_alt: {sum([p1(reversed(list(map(int, row.split())))) for row in data])}")
 
 
 if __name__ == "__main__":
