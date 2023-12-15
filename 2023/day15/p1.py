@@ -48,11 +48,8 @@ def main() -> None:
             sys.exit(f"failed to parse {cmd}")
         hs = parse_step(lbl)
         # print(f"{lbl} -> {hs} {oper} {slot}")
-        if oper == "-":
-            try:
-                del boxes[hs][lbl]
-            except KeyError:
-                continue
+        if oper == "-" and lbl in boxes[hs]:
+            del boxes[hs][lbl]
         elif oper == "=":
             boxes[hs][lbl] = slot
 
