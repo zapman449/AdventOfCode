@@ -6,14 +6,13 @@ import fileinput
 def main() -> None:
     # parse input
     col1, col2 = [], []
-    count_col2 = collections.defaultdict(int)
     for line in fileinput.input():
         n1, n2 = map(int, line.split())
         col1.append(n1)
         col2.append(n2)
-        count_col2[n2] += 1
     col1.sort()
     col2.sort()
+    count_col2 = collections.Counter(col2)
 
     # part 1
     tally = 0
