@@ -4,19 +4,17 @@ import fileinput
 import typing
 
 
-def test_increase(row: typing.List[int]) -> bool:
-    for i in range(1, len(row)):
-        delta = row[i - 1] - row[i]
-        if 1 <= delta <= 3:
-            continue
-        else:
-            return False
-    return True
-
-
-def test_decrease(row: typing.List[int]) -> bool:
-    for i in range(1, len(row)):
-        delta = row[i] - row[i - 1]
+def test_row(row: typing.List[int]) -> bool:
+    if row[1] > row[0]:
+        # increasing
+        def delta_calc(i:int, i_minus_one: int) -> int:
+            return i - i_minus_one
+    else:
+        # decreasing
+        def delta_calc(i:int, i_minus_one: int) -> int:
+            return i_minus_one - i
+    for j in range(1, len(row)):
+        delta = delta_calc(row[j], row[j - 1])
         if 1 <= delta <= 3:
             continue
         else:
@@ -27,7 +25,7 @@ def test_decrease(row: typing.List[int]) -> bool:
 def test_skip_one(row: typing.List[int]) -> bool:
     for i in range(len(row)):
         new_row = row[:i] + row[i+1:]
-        if test_increase(new_row) or test_decrease(new_row):
+        if test_row(new_row):
             return True
     return False
 
@@ -37,7 +35,7 @@ def main() -> None:
     p2_tally = 0
     for line in fileinput.input():
         row = list(map(int, line.split()))
-        if test_increase(row) or test_decrease(row):
+        if test_row(row):
             p1_tally += 1
             p2_tally += 1
         elif test_skip_one(row):
