@@ -4,17 +4,18 @@ import fileinput
 import typing
 
 
+def delta_calc(i:int, i_minus_one: int, increasing: bool) -> int:
+    if increasing:
+        return i - i_minus_one
+    return i_minus_one - i
+
+
 def test_row(row: typing.List[int]) -> bool:
+    increasing = False
     if row[1] > row[0]:
-        # increasing
-        def delta_calc(i:int, i_minus_one: int) -> int:
-            return i - i_minus_one
-    else:
-        # decreasing
-        def delta_calc(i:int, i_minus_one: int) -> int:
-            return i_minus_one - i
-    for j in range(1, len(row)):
-        delta = delta_calc(row[j], row[j - 1])
+        increasing = True
+    for i in range(1, len(row)):
+        delta = delta_calc(row[i], row[i - 1], increasing)
         if 1 <= delta <= 3:
             continue
         else:
