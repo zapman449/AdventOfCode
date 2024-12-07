@@ -40,6 +40,7 @@ def solvable(answer: int, numbers: typing.Tuple[int, ...], operators:typing.List
                 break
         if solution == answer:
             solutions += 1
+            break
     return solutions
 
 
