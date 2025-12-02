@@ -66,12 +66,13 @@ class Dial(object):
             if distance < self._index:
                 self._index -= distance
             else: # distance > self._index
-                negative_travel_distance = distance - self._index
+                negative_travel_distance = -1 * (distance - self._index)
                 if self._index == 0:
-                    self._cross_zero += ((-1 * negative_travel_distance) // -100)
+                    self._cross_zero += (negative_travel_distance // -100)
                 else:
-                    self._cross_zero += ((-1 * negative_travel_distance) // -100) + 1
+                    self._cross_zero += (negative_travel_distance // -100) + 1
 
+                # NOW that our hacking is done, we can safely modify self._index
                 self._index = (self._index - distance) % 100
                 if self._index == 0:
                     self._zero_count += 1
