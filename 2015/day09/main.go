@@ -70,7 +70,7 @@ func main() {
 		processLine(line, cities, distances, cli.Debug)
 	}
 	var cityList []string
-	for k, _ := range cities {
+	for k := range cities {
 		cityList = append(cityList, k)
 	}
 	for perm := range utilities.Permutations(cityList) {
